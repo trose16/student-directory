@@ -24,9 +24,12 @@ def print_header
 end
 
 def print(students)
+  puts "Here are the students with short names:"
   students.each do |student|
-    if student [:name].start_with?("D")
-      puts "Here are the students that start with a 'D': #{student[:name]} (#{student[:cohort]} cohort)"
+    if student [:name].length < 12
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    else
+      nil
     end
   end
 end
