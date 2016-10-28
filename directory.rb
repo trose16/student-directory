@@ -6,20 +6,26 @@ def input_students
   students = []
   # get the first name
   name = gets.chomp.center(30)
+  puts "Enter student cohort"
+  cohort = gets.chomp
+  puts "Enter student birth country:"
+  birth_country = gets.chomp
+  puts "Enter student hobbies"
+  hobbies = gets.chomp
   # while the name is not empty, repeat this code block
   while !name.empty? do
-    puts "Enter student cohort"
-    cohort = gets.chomp
-    puts "Enter student birth country:"
-    birth_country = gets.chomp
-    puts "Enter student hobbies"
-    hobbies = gets.chomp
     # add the student hash to the array
     students << {name: name, cohort: cohort, birth: birth_country, hobbies: hobbies}
     puts "Now we have #{students.count} students".center(30)
     # get another name from the user
     puts "Enter student name:"
     name = gets.chomp
+    puts "Enter student cohort"
+    cohort = gets.chomp
+    puts "Enter student birth country:"
+    birth_country = gets.chomp
+    puts "Enter student hobbies"
+    hobbies = gets.chomp
   end
   # return the array of students
   students
@@ -32,7 +38,7 @@ end
 
 def print(students)
   students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    puts "#{student[:name]} (#{student[:cohort]} cohort #{student [:birth]} #{student [:hobbies]})"
   end
 end
 
