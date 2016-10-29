@@ -1,3 +1,10 @@
+def interactive_menu
+  # 1. print the menu and ask the user what to do
+  # 2. read the input and save it into a variable
+  # 3. do what the user has asked
+  # 4. repeat from step 1
+end
+
 # get user to input student names
 def input_students
   puts "Please enter the name, cohort, birth country, and hobbies of each student".center(10)
