@@ -5,9 +5,9 @@ def input_students
   # create an empty array
   students = []
   # get the first name
-  name = gets.chomp
+  name = gets.chop
   puts "Enter cohort do not abbreviate the month"
-  cohort = gets.chomp.to_sym
+  cohort = gets.chop.to_sym
     if
       cohort.empty?
       cohort = nil
@@ -15,9 +15,9 @@ def input_students
       cohort
     end
   puts "Enter student birth country:"
-  birth_country = gets.chomp
+  birth_country = gets.chop
   puts "Enter student hobbies"
-  hobbies = gets.chomp
+  hobbies = gets.chop
   # while the name is not empty, repeat this code block
   while !name.empty? do
     # add the student hash to the array
@@ -25,13 +25,13 @@ def input_students
     puts "Now we have #{students.count} students".center(30)
     # get another name from the user
     puts "Enter student name:"
-    name = gets.chomp
+    name = gets.chop
     puts "Enter student cohort"
-    cohort = gets.chomp
+    cohort = gets.chop
     puts "Enter student birth country:"
-    birth_country = gets.chomp
+    birth_country = gets.chop
     puts "Enter student hobbies"
-    hobbies = gets.chomp
+    hobbies = gets.chop
   end
   # return the array of students
   students
@@ -52,8 +52,8 @@ def cohort_sort(students)
   sort = students.map { |student| student[:cohort] }
   puts "Here are our current cohort months:"
   puts sort
-  puts "Enter the one you’d like to view"
-  view = gets.chomp.to_sym
+  puts "Enter the one you’d like to view:"
+  view = gets.chop.to_sym
   students.each do |student|
     if student[:cohort] == view
       puts "#{student[:cohort]} cohort, student #{student[:name]}"
