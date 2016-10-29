@@ -105,6 +105,7 @@ def print_footer(students)
 end
 
 # nothing happens until we call the methods
+interactive_menu
 students = input_students
 print_header
 print(students)
