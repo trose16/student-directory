@@ -43,29 +43,39 @@ def print_header
 end
 
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort #{student [:birth]} #{student [:hobbies]})".center(20)
+  if students.count >= 1
+    students.each do |student|
+      puts "#{student[:name]} (#{student [:cohort]} cohort #{student [:birth]} #{student [:hobbies]})".center(20)
+    end
+  else
+    puts "Sorry we don't have any students to report quite yet!"
   end
 end
 
 def cohort_sort(students)
-  sort = students.map { |student| student[:cohort] }
-  puts "Here are our current cohort months:"
-  puts sort
-  puts "Enter the one you’d like to view:"
-  view = gets.chop.to_sym
-  students.each do |student|
-    if student[:cohort] == view
-      puts "#{student[:cohort]} cohort, student #{student[:name]}"
+  if students.count >= 1
+    sort = students.map { |student| student[:cohort] }
+    puts "Here are our current cohort months:"
+    puts sort
+    puts "Enter the one you’d like to view:"
+    view = gets.chop.to_sym
+    students.each do |student|
+      if student[:cohort] == view
+        puts "#{student[:cohort]} cohort, student #{student[:name]}"
+      end
     end
+  else
+    puts nil
   end
 end
 
 def print_footer(students)
   if students.count > 2
-    puts "Overall, we have #{students.count} great student"
-  else
+    puts "Overall, we have #{students.count} great student!"
+  elsif students.count == 1
     puts "I know we have #{students.count} great student!"
+  else
+    puts nil
   end
 end
 
