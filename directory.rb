@@ -2,9 +2,13 @@
 
 def interactive_menu
   loop do
-    selection = gets.chomp
-    # 3. do what the user has asked
-    case selection
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+def process (selection)
+  case selection
     when "1"
       input_students
     when "2"
@@ -13,7 +17,6 @@ def interactive_menu
       exit # this will cause the program to terminate
     else
       puts "I don't know what you meant, try again please"
-    end
   end
 end
 
@@ -27,7 +30,7 @@ end
 
 def show_students
   print_header
-  print
+  print_students_list
   print_footer
 end
 
@@ -75,10 +78,10 @@ def print_header
   puts "-------------".center(30)
 end
 
-def print
+def print_students_list
   if @students.count >= 1
     @students.each do |student|
-      puts "#{@student[:name]} (#{@student [:cohort]} cohort #{@student [:birth]} #{@student [:hobbies]})".center(20)
+      puts "#{student[:name]} (#{student[:cohort]} cohort #{student[:birth]} #{student[:hobbies]})"
     end
   else
     puts "Sorry we don't have any students to report quite yet!"
@@ -93,7 +96,6 @@ def cohort_sort
     puts "Enter the one you’d like to view:"
     view = gets.chop.to_sym
     students.each do |student|
-
       if @student[:cohort] == view
         puts "#{@student[:cohort]} cohort, student #{@student[:name]}"
       end
@@ -114,10 +116,9 @@ def print_footer
 end
 
 # nothing happens until we call the methods
-print_menu
 interactive_menu
 students = input_students
 print_header
-print(students)
-print_footer(students)
-cohort_sort(students)
+print_students_list
+print_footer
+cohort_sort
