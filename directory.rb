@@ -5,9 +5,15 @@ def input_students
   # create an empty array
   students = []
   # get the first name
-  name = gets.chomp.center(30)
-  puts "Enter student cohort"
-  cohort = gets.chomp
+  name = gets.chomp
+  puts "Enter cohort do not abbreviate the month"
+  cohort = gets.chomp.to_sym
+    if
+      cohort.empty?
+      cohort = nil
+    else
+      cohort
+    end
   puts "Enter student birth country:"
   birth_country = gets.chomp
   puts "Enter student hobbies"
@@ -38,7 +44,20 @@ end
 
 def print(students)
   students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort #{student [:birth]} #{student [:hobbies]})"
+    puts "#{student[:name]} (#{student[:cohort]} cohort #{student [:birth]} #{student [:hobbies]})".center(20)
+  end
+end
+
+def cohort_sort(students)
+  sort = students.map { |student| student[:cohort] }
+  puts "Here are our current cohort months:"
+  puts sort
+  puts "Enter the one you’d like to view"
+  view = gets.chomp.to_sym
+  students.each do |student|
+    if student[:cohort] == view
+      puts "#{student[:cohort]} cohort, student #{student[:name]}"
+    end
   end
 end
 
@@ -51,3 +70,4 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
+cohort_sort(students)
