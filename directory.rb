@@ -1,26 +1,34 @@
+@students = [] # an empty array accessible to all methods
+
 def interactive_menu
-  students = []
   loop do
-    # 1. print the menu and ask the user what to do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit" # 9 because we will be adding more items
-    # 2. read the input and save it into a variable
     selection = gets.chomp
     # 3. do what the user has asked
     case selection
     when "1"
-      students = input_students
+      input_students
     when "2"
-      print_header
-      print(students)
-      print_footer(students)
+      show_students
     when "9"
       exit # this will cause the program to terminate
     else
       puts "I don't know what you meant, try again please"
     end
   end
+end
+
+def print_menu
+  # 1. print the menu and ask the user what to do
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit" # 9 because we will be adding more items
+  # 2. read the input and save it into a variable
+end
+
+def show_students
+  print_header
+  print
+  print_footer
 end
 
 # get user to input student names
@@ -46,8 +54,8 @@ def input_students
   # while the name is not empty, repeat this code block
   while !name.empty? do
     # add the student hash to the array
-    students << {name: name, cohort: cohort, birth: birth_country, hobbies: hobbies}
-    puts "Now we have #{students.count} students".center(30)
+    @students << {name: name, cohort: cohort, birth: birth_country, hobbies: hobbies}
+    puts "Now we have #{@students.count} students".center(30)
     # get another name from the user
     puts "Enter student name:"
     name = gets.chop
@@ -67,26 +75,27 @@ def print_header
   puts "-------------".center(30)
 end
 
-def print(students)
-  if students.count >= 1
-    students.each do |student|
-      puts "#{student[:name]} (#{student [:cohort]} cohort #{student [:birth]} #{student [:hobbies]})".center(20)
+def print
+  if @students.count >= 1
+    @students.each do |student|
+      puts "#{@student[:name]} (#{@student [:cohort]} cohort #{@student [:birth]} #{@student [:hobbies]})".center(20)
     end
   else
     puts "Sorry we don't have any students to report quite yet!"
   end
 end
 
-def cohort_sort(students)
-  if students.count >= 1
-    sort = students.map { |student| student[:cohort] }
+def cohort_sort
+  if @students.count >= 1
+    sort = @students.map { |student| student[:cohort] }
     puts "Here are our current cohort months:"
     puts sort
     puts "Enter the one you’d like to view:"
     view = gets.chop.to_sym
     students.each do |student|
-      if student[:cohort] == view
-        puts "#{student[:cohort]} cohort, student #{student[:name]}"
+
+      if @student[:cohort] == view
+        puts "#{@student[:cohort]} cohort, student #{@student[:name]}"
       end
     end
   else
@@ -94,17 +103,18 @@ def cohort_sort(students)
   end
 end
 
-def print_footer(students)
-  if students.count > 2
-    puts "Overall, we have #{students.count} great student!"
-  elsif students.count == 1
-    puts "I know we have #{students.count} great student!"
+def print_footer
+  if @students.count > 2
+    puts "Overall, we have #{@students.count} great student!"
+  elsif @students.count == 1
+    puts "I know we have #{@students.count} great student!"
   else
     puts nil
   end
 end
 
 # nothing happens until we call the methods
+print_menu
 interactive_menu
 students = input_students
 print_header
