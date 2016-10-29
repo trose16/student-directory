@@ -62,7 +62,11 @@ def cohort_sort(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  if students.count > 2
+    puts "Overall, we have #{students.count} great student"
+  else
+    puts "I know we have #{students.count} great student!"
+  end
 end
 
 # nothing happens until we call the methods
