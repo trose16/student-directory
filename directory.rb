@@ -91,14 +91,15 @@ def print_footer
   end
 end
 
-def save_students
+def save_students(file_choice = "students.csv")
   if @students.count > 0
-    puts "*** Okay, saving #{@students.count} new students ***"
+    puts "*** What file would you like to save to? ***"
+    file_choice = STDIN.gets.chomp
   else
     puts "*** You have no new students to save *** "
   end
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(file_choice, "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -108,12 +109,14 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
-  puts "*** You would like to see all saved students ***"
-  file = File.open(filename, "r")
+def load_students(file_open_choice = "students.csv")
+  puts "*** What file would you like to open? ***"
+  file_open_choice = STDIN.gets.chomp
+  file = File.open(file_open_choice, "r")
   file.readlines.each do |line|
-  name, cohort = line.chomp.split(",")
-  @students << {name: name, cohort: cohort.to_sym}
+  @name, @cohort = line.chomp.split(",")
+  @students << {name: @name, cohort: @cohort}
+  puts File.read(file_open_choice)
   end
   file.close
 end
@@ -123,7 +126,7 @@ def try_load_students
   return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
     load_students(filename)
-      puts "Loaded #{@students.count} from #{filename}"
+    puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
     puts "Sorry, #{filename} doesn't exist."
     exit # quit the program
