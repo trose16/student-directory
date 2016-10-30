@@ -34,18 +34,24 @@ def process(selection)
   end
 end
 
-def show_students
-  print_header
-  print_students_list
-  print_footer
-end
-
 # get user to input student names
 def input_students
   puts "Please enter the name, cohort, birth country, and hobbies of each student".center(10)
   puts "To finish, just hit return twice"
-  # create an empty array
-  students = []
+  # get the first name
+  name = STDIN.gets.chomp
+  # while the name is not empty, repeat this code block
+  while !name.empty? do
+    # add the student hash to the array
+    @students << {name: name, cohort: cohort, birth: birth_country, hobbies: hobbies}
+    puts "Now we have #{@students.count} students".center(30)
+    name = STDIN.gets.chomp
+  end
+end
+
+def input_students
+  puts "Please enter the name, cohort, birth country, and hobbies of each student".center(10)
+  puts "To finish, just hit return twice"
   # get the first name
   name = STDIN.gets.chomp
   puts "Enter cohort do not abbreviate the month"
@@ -57,9 +63,9 @@ def input_students
       cohort
     end
   puts "Enter student birth country:"
-  birth_country = gets.chop
+  birth_country = gets.chomp
   puts "Enter student hobbies"
-  hobbies = gets.chop
+  hobbies = gets.chomp
   # while the name is not empty, repeat this code block
   while !name.empty? do
     # add the student hash to the array
@@ -67,16 +73,19 @@ def input_students
     puts "Now we have #{@students.count} students".center(30)
     # get another name from the user
     puts "Enter student name:"
-    name = gets.chop
+    name = STDIN.gets.chomp
     puts "Enter student cohort"
-    cohort = gets.chop
+    cohort = STDIN.gets.chomp
     puts "Enter student birth country:"
-    birth_country = gets.chop
+    birth_country = STDIN.gets.chomp
     puts "Enter student hobbies"
-    hobbies = gets.chop
-  end
-  # return the array of students
-  students
+    hobbies = STDIN.gets.chomp
+end
+
+def show_students
+  print_header
+  print_students_list
+  print_footer
 end
 
 def print_header
@@ -91,23 +100,6 @@ def print_students_list
     end
   else
     puts "Sorry we don't have any students to report quite yet!"
-  end
-end
-
-def cohort_sort
-  if @students.count >= 1
-    sort = @students.map { |student| student[:cohort] }
-    puts "Here are our current cohort months:"
-    puts sort
-    puts "Enter the one you’d like to view:"
-    view = gets.chop.to_sym
-    students.each do |student|
-      if @student[:cohort] == view
-        puts "#{@student[:cohort]} cohort, student #{@student[:name]}"
-      end
-    end
-  else
-    puts nil
   end
 end
 
@@ -154,10 +146,23 @@ def try_load_students
   end
 end
 
+def cohort_sort
+  if @students.count >= 1
+    sort = @students.map { |student| student[:cohort] }
+    puts "Here are our current cohort months:"
+    puts sort
+    puts "Enter the one you’d like to view:"
+    view = gets.chop.to_sym
+    students.each do |student|
+      if @student[:cohort] == view
+        puts "#{@student[:cohort]} cohort, student #{@student[:name]}"
+      end
+    end
+  else
+    puts nil
+  end
+end
+
 # nothing happens until we call the methods
+try_load_students
 interactive_menu
-students = input_students
-print_header
-print_students_list
-print_footer
-cohort_sort
