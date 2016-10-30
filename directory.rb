@@ -1,3 +1,5 @@
+require 'students.crv'
+
 @students = [] # an empty array accessible to all methods
 
 def print_menu
@@ -33,56 +35,30 @@ def process(selection)
   end
 end
 
-# get user to input student names
 def input_students
-  puts "Please enter the name, cohort, birth country, and hobbies of each student".center(10)
-  puts "To finish, just hit return twice"
-  name = STDIN.gets.chomp # get the first name
-
-    while !name.empty? do # while the name is not empty, repeat this code block
-      # add the student hash to the array
-      @students << {name: name, cohort: cohort, birth: birth_country, hobbies: hobbies}
-      puts "Now we have #{@students.count} students".center(30)
-      name = STDIN.gets.chomp
-    end
-
+    puts "To start enter student name"
+    puts "To finish, just hit return twice"
+    make_profile
 end
 
-def input_students
-    puts "Please enter the name, cohort, birth country, and hobbies of each student"
-    puts "To finish, just hit return twice"
-    # get the first name
-    name = STDIN.gets.chomp
-    puts "Enter cohort do not abbreviate the month"
-    cohort = gets.chomp.to_sym
+def make_profile
+	     loop do
+         puts "Enter student name"
+         @name = STDIN.gets.chomp
+          puts "Enter student cohort"
+          @cohort = STDIN.gets.chomp
+          puts "Enter student birth country:"
+          @birth_country = STDIN.gets.chomp
+          puts "Enter student hobbies"
+          @hobbies = STDIN.gets.chomp
+          profile_to_array
+          print_footer
+       break if @name.empty?
+	   end
+end
 
-      if
-        cohort.empty?
-        cohort = nil
-      else
-        cohort
-      end
-
-    puts "Enter student birth country:"
-    birth_country = gets.chomp
-    puts "Enter student hobbies"
-    hobbies = gets.chomp
-
-      # while the name is not empty, repeat this code block
-      while !name.empty? do
-        # add the student hash to the array
-        @students << {name: name, cohort: cohort, birth: birth_country, hobbies: hobbies}
-        puts "Now we have #{@students.count} students".center(30)
-        # get another name from the user
-        puts "Enter student name:"
-        name = STDIN.gets.chomp
-        puts "Enter student cohort"
-        cohort = STDIN.gets.chomp
-        puts "Enter student birth country:"
-        birth_country = STDIN.gets.chomp
-        puts "Enter student hobbies"
-        hobbies = STDIN.gets.chomp
-      end
+def profile_to_array
+  @students << {name: @name, cohort: @cohort, birth: @birth_country, hobbies: @hobbies}
 end
 
 def show_students
@@ -131,8 +107,8 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+  name, cohort = line.chomp.split(",")
+  @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
