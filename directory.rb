@@ -114,9 +114,9 @@ def load_students(file_open_choice = "students.csv")
   file_open_choice = STDIN.gets.chomp
   file = File.open(file_open_choice, "r")
   file.readlines.each do |line|
-  @name, @cohort = line.chomp.split(",")
-  @students << {name: @name, cohort: @cohort}
-  puts File.read(file_open_choice)
+    @name, @cohort = line.chomp.split(",")
+    @students << {name: @name, cohort: @cohort}
+    puts File.read(file_open_choice)
   end
   file.close
 end
