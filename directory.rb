@@ -7,7 +7,6 @@ def print_menu
   puts "3. Save the list to students.csv"
   puts "4. Load the list from students.csv"
   puts "9. Exit" # 9 because we will be adding more items
-  # 2. read the input and save it into a variable
 end
 
 def interactive_menu
@@ -38,48 +37,52 @@ end
 def input_students
   puts "Please enter the name, cohort, birth country, and hobbies of each student".center(10)
   puts "To finish, just hit return twice"
-  # get the first name
-  name = STDIN.gets.chomp
-  # while the name is not empty, repeat this code block
-  while !name.empty? do
-    # add the student hash to the array
-    @students << {name: name, cohort: cohort, birth: birth_country, hobbies: hobbies}
-    puts "Now we have #{@students.count} students".center(30)
-    name = STDIN.gets.chomp
-  end
+  name = STDIN.gets.chomp # get the first name
+
+    while !name.empty? do # while the name is not empty, repeat this code block
+      # add the student hash to the array
+      @students << {name: name, cohort: cohort, birth: birth_country, hobbies: hobbies}
+      puts "Now we have #{@students.count} students".center(30)
+      name = STDIN.gets.chomp
+    end
+
 end
 
 def input_students
-  puts "Please enter the name, cohort, birth country, and hobbies of each student".center(10)
-  puts "To finish, just hit return twice"
-  # get the first name
-  name = STDIN.gets.chomp
-  puts "Enter cohort do not abbreviate the month"
-  cohort = gets.chop.to_sym
-    if
-      cohort.empty?
-      cohort = nil
-    else
-      cohort
-    end
-  puts "Enter student birth country:"
-  birth_country = gets.chomp
-  puts "Enter student hobbies"
-  hobbies = gets.chomp
-  # while the name is not empty, repeat this code block
-  while !name.empty? do
-    # add the student hash to the array
-    @students << {name: name, cohort: cohort, birth: birth_country, hobbies: hobbies}
-    puts "Now we have #{@students.count} students".center(30)
-    # get another name from the user
-    puts "Enter student name:"
+    puts "Please enter the name, cohort, birth country, and hobbies of each student"
+    puts "To finish, just hit return twice"
+    # get the first name
     name = STDIN.gets.chomp
-    puts "Enter student cohort"
-    cohort = STDIN.gets.chomp
+    puts "Enter cohort do not abbreviate the month"
+    cohort = gets.chomp.to_sym
+
+      if
+        cohort.empty?
+        cohort = nil
+      else
+        cohort
+      end
+
     puts "Enter student birth country:"
-    birth_country = STDIN.gets.chomp
+    birth_country = gets.chomp
     puts "Enter student hobbies"
-    hobbies = STDIN.gets.chomp
+    hobbies = gets.chomp
+
+      # while the name is not empty, repeat this code block
+      while !name.empty? do
+        # add the student hash to the array
+        @students << {name: name, cohort: cohort, birth: birth_country, hobbies: hobbies}
+        puts "Now we have #{@students.count} students".center(30)
+        # get another name from the user
+        puts "Enter student name:"
+        name = STDIN.gets.chomp
+        puts "Enter student cohort"
+        cohort = STDIN.gets.chomp
+        puts "Enter student birth country:"
+        birth_country = STDIN.gets.chomp
+        puts "Enter student hobbies"
+        hobbies = STDIN.gets.chomp
+      end
 end
 
 def show_students
