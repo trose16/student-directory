@@ -1,13 +1,23 @@
 @students = [] # an empty array accessible to all methods
 
+def print_menu
+  # 1. print the menu and ask the user what to do
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
+  puts "9. Exit" # 9 because we will be adding more items
+  # 2. read the input and save it into a variable
+end
+
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
-def process (selection)
+def process(selection)
   case selection
     when "1"
       input_students
@@ -24,16 +34,6 @@ def process (selection)
   end
 end
 
-def print_menu
-  # 1. print the menu and ask the user what to do
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
-  puts "9. Exit" # 9 because we will be adding more items
-  # 2. read the input and save it into a variable
-end
-
 def show_students
   print_header
   print_students_list
@@ -47,7 +47,7 @@ def input_students
   # create an empty array
   students = []
   # get the first name
-  name = gets.chop
+  name = STDIN.gets.chomp
   puts "Enter cohort do not abbreviate the month"
   cohort = gets.chop.to_sym
     if
@@ -133,13 +133,25 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
+end
+
+def try_load_students
+  filename = ARGV.first # first argument from the command line
+  return if filename.nil? # get out of the method if it isn't given
+  if File.exists?(filename) # if it exists
+    load_students(filename)
+      puts "Loaded #{@students.count} from #{filename}"
+  else # if it doesn't exist
+    puts "Sorry, #{filename} doesn't exist."
+    exit # quit the program
+  end
 end
 
 # nothing happens until we call the methods
