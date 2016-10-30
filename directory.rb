@@ -1,5 +1,3 @@
-require 'students.crv'
-
 @students = [] # an empty array accessible to all methods
 
 def print_menu
@@ -42,18 +40,19 @@ def input_students
 end
 
 def make_profile
-	     loop do
-         puts "Enter student name"
-         @name = STDIN.gets.chomp
-          puts "Enter student cohort"
-          @cohort = STDIN.gets.chomp
-          puts "Enter student birth country:"
-          @birth_country = STDIN.gets.chomp
-          puts "Enter student hobbies"
-          @hobbies = STDIN.gets.chomp
-          profile_to_array
-          print_footer
-       break if @name.empty?
+  puts "*** You requested to make a new student profile. ***"
+	  loop do
+      puts "Enter student name"
+      @name = STDIN.gets.chomp
+      puts "Enter student cohort"
+      @cohort = STDIN.gets.chomp
+      puts "Enter student birth country:"
+      @birth_country = STDIN.gets.chomp
+      puts "Enter student hobbies"
+      @hobbies = STDIN.gets.chomp
+      profile_to_array
+      print_footer
+        break if @name.empty?
 	   end
 end
 
@@ -93,6 +92,11 @@ def print_footer
 end
 
 def save_students
+  if @students.count > 0
+    puts "*** Okay, saving #{@students.count} new students ***"
+  else
+    puts "*** You have no new students to save *** "
+  end
   # open the file for writing
   file = File.open("students.csv", "w")
   # iterate over the array of students
@@ -105,6 +109,7 @@ def save_students
 end
 
 def load_students(filename = "students.csv")
+  puts "*** You would like to see all saved students ***"
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
